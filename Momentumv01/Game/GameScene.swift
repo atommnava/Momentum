@@ -30,6 +30,9 @@ final class GameScene: SKScene {
     
     private func startSpawningPoints()
     {
+        guard action(forKey: spawnActionKey) == nil else {
+            return
+        }
         let spawn = SKAction.run { [weak self] in self?.createPoint() }
         let wait = SKAction.wait(forDuration: spawnInterval)
         let sequence = SKAction.sequence([spawn, wait])
@@ -61,5 +64,17 @@ final class GameScene: SKScene {
         
         let location = touch.location(in: self)
         handleTouch(at: location)
+    }
+    
+    func pauseGame()
+    {
+        removeAction(forKey: spawnActionKey)
+        isPaused = true
+    }
+    
+    func resumeGame()
+    {
+        isPaused = false
+        startSpawningPoints()
     }
 }

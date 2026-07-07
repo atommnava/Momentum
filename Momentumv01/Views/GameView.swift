@@ -12,11 +12,18 @@ struct GameView: View {
     let difficulty: Difficulty
     let onExit: () -> Void
     
+    @State private var isPaused = false
     @State private var experience = ShowExperience()
+    
+    private let scene: GameScene = {
+        let scene = GameScene(size: CGSize(width: 390, height: 844))
+        scene.scaleMode = .resizeFill
+        return scene
+    }()
     
     var body: some View {
         ZStack {
-            SpriteView(scene: makeScene()).ignoresSafeArea()
+            SpriteView(scene: scene).ignoresSafeArea()
                 
             VStack {
                 HStack {
@@ -28,27 +35,36 @@ struct GameView: View {
                             .foregroundStyle(.white)
                             .padding()
                     }
+                    
                     Spacer()
                     
                     Text("XP: \(experience.points)")
                         .font(.headline.bold())
                         .foregroundStyle(.white)
-                        .padding()
-                                           
+                    
                     Spacer()
+                    
+                    Button {
+                        isPaused.toggle()
+                        
+                        if isPaused {
+                            scene.pauseGame()
+                        } else {
+                            scene.resumeGame()
+                        }
+                    } label: {
+                        Image(systemName: isPaused ? "play.fill" : "pause.fill")
+                            .font(.title2.bold())
+                            .foregroundStyle(.white)
+                            .padding()
+                    }
                 }
+                
                 Spacer()
             }
         }
-    }
-    
-    private func makeScene() -> SKScene
-    {
-        let scene = GameScene(size: CGSize(width: 390, height: 844))
-        scene.scaleMode = .resizeFill
-        scene.onPointTouched = {
-            experience.add(10)
+        .onAppear {
+            scene.onPointTouched = { experience.add(1) }
         }
-        return scene
     }
 }
