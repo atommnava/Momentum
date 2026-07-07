@@ -15,7 +15,10 @@ struct ContentView: View {
     var body: some View {
         ZStack {
             if let difficulty = selectedDifficulty {
-                GameView(difficulty: difficulty)
+                GameView(difficulty: difficulty) {
+                    selectedDifficulty = nil
+                    showDifficulties = false
+                }
             } else {
                 mainMenu
             }
