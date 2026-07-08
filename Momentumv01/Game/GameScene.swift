@@ -9,9 +9,10 @@ import Foundation
 import SpriteKit
 
 final class GameScene: SKScene {
-    private let spawnInterval: TimeInterval = 1
+    private let spawnInterval: TimeInterval = 3
     private let spawnActionKey = "spawnPoints"
     public var onPointTouched: (() -> Void)?
+    private var gamePaused: Bool = false
     
     override func didMove(to view: SKView)
     {
@@ -35,7 +36,7 @@ final class GameScene: SKScene {
         }
         let spawn = SKAction.run { [weak self] in self?.createPoint() }
         let wait = SKAction.wait(forDuration: spawnInterval)
-        let sequence = SKAction.sequence([spawn, wait])
+        let sequence = SKAction.sequence([wait, spawn])
         let repeatForever = SKAction.repeatForever(sequence)
         
         run(repeatForever, withKey: spawnActionKey)
@@ -43,6 +44,10 @@ final class GameScene: SKScene {
     
     private func handleTouch(at location: CGPoint)
     {
+        guard !isPaused else {
+            return
+        }
+        
         let touchedNodes = nodes(at: location)
         
         for node in touchedNodes {
@@ -53,7 +58,6 @@ final class GameScene: SKScene {
                 print("Node touched!")
                 return
             }
-            
         }
     }
     
@@ -68,6 +72,7 @@ final class GameScene: SKScene {
     
     func pauseGame()
     {
+        
         removeAction(forKey: spawnActionKey)
         isPaused = true
     }

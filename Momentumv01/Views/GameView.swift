@@ -64,7 +64,8 @@ struct GameView: View {
             }
         }
         .onAppear {
-            scene.onPointTouched = { experience.add(1) }
+            scene.onPointTouched = {
+                experience.add(amount: 1) }
         }
     }
 }

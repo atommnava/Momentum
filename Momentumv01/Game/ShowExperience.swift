@@ -10,7 +10,7 @@ import Foundation
 struct ShowExperience {
     private(set) var points: Int = 0
     
-    mutating func add(_ amount: Int)
+    mutating func add(amount: Int)
     {
         points += amount
     }
