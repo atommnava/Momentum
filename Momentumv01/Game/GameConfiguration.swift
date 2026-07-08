@@ -6,3 +6,13 @@
 //
 
 import Foundation
+import CoreGraphics
+
+struct GameConfiguration {
+    let spawnInterval: TimeInterval
+    let pointLifeTime: TimeInterval
+    let pointRadius: CGFloat
+    let xpPerPoint: Int
+}
+
+

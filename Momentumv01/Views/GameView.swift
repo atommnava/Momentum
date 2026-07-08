@@ -11,13 +11,14 @@ import SpriteKit
 struct GameView: View {
     let difficulty: Difficulty
     let onExit: () -> Void
+    let configuration = difficulty.configuration
     
     @State private var experience = ShowExperience()
     @State private var isPaused = false
     @State private var countdown: Int?
     
     private let scene: GameScene = {
-        let scene = GameScene(size: CGSize(width: 390, height: 844))
+        let scene = GameScene(size: CGSize(width: 390, height: 844), configuration: difficulty.configuration)
         scene.scaleMode = .resizeFill
         return scene
     }()
