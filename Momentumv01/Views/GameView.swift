@@ -12,8 +12,8 @@ struct GameView: View {
     let difficulty: Difficulty
     let onExit: () -> Void
     
-    @State private var isPaused = false
     @State private var experience = ShowExperience()
+    @State private var isPaused = false
     
     private let scene: GameScene = {
         let scene = GameScene(size: CGSize(width: 390, height: 844))
@@ -46,7 +46,6 @@ struct GameView: View {
                     
                     Button {
                         isPaused.toggle()
-                        
                         if isPaused {
                             scene.pauseGame()
                         } else {

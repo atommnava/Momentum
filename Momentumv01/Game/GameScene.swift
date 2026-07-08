@@ -12,7 +12,7 @@ final class GameScene: SKScene {
     private let spawnInterval: TimeInterval = 3
     private let spawnActionKey = "spawnPoints"
     public var onPointTouched: (() -> Void)?
-    private var gamePaused: Bool = false
+    private(set) var isGamePaused = false
     
     override func didMove(to view: SKView)
     {
@@ -44,9 +44,7 @@ final class GameScene: SKScene {
     
     private func handleTouch(at location: CGPoint)
     {
-        guard !isPaused else {
-            return
-        }
+        guard !isGamePaused else { return }
         
         let touchedNodes = nodes(at: location)
         
@@ -63,8 +61,9 @@ final class GameScene: SKScene {
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?)
     {
+        guard !isGamePaused else { return }
         guard let touch = touches.first else { return }
-        handleTouch(at: touch.location(in: self))
+        
         
         let location = touch.location(in: self)
         handleTouch(at: location)
@@ -72,14 +71,13 @@ final class GameScene: SKScene {
     
     func pauseGame()
     {
-        
-        removeAction(forKey: spawnActionKey)
-        isPaused = true
+        isGamePaused = true
+        self.isPaused = true
     }
     
     func resumeGame()
     {
-        isPaused = false
-        startSpawningPoints()
+        isGamePaused = false
+        self.isPaused = false
     }
 }
