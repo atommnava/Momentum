@@ -14,6 +14,7 @@ struct GameView: View {
     
     @State private var experience = ShowExperience()
     @State private var isPaused = false
+    @State private var countdown: Int?
     
     private let scene: GameScene = {
         let scene = GameScene(size: CGSize(width: 390, height: 844))
@@ -45,11 +46,10 @@ struct GameView: View {
                     Spacer()
                     
                     Button {
-                        isPaused.toggle()
                         if isPaused {
-                            scene.pauseGame()
                         } else {
-                            scene.resumeGame()
+                            isPaused = true
+                            scene.isPaused = true
                         }
                     } label: {
                         Image(systemName: isPaused ? "play.fill" : "pause.fill")
@@ -58,13 +58,18 @@ struct GameView: View {
                             .padding()
                     }
                 }
-                
+                if let countdown {
+                    Text("\(countdown)")
+                            .font(.system(size: 90, weight: .black, design: .rounded))
+                            .foregroundStyle(.white)
+                }
                 Spacer()
             }
         }
         .onAppear {
             scene.onPointTouched = {
                 experience.add(amount: 1) }
+            }
         }
     }
 }
