@@ -9,33 +9,33 @@ import Foundation
 import SpriteKit
 
 final class GameScene: SKScene {
-    private let spawnInterval: TimeInterval = 3
     private let spawnActionKey = "spawnPoints"
+    private var gameConfiguration: GameConfiguration?
     public var onPointTouched: (() -> Void)?
     private(set) var isGamePaused = false
     
     override func didMove(to view: SKView)
     {
         backgroundColor = .black
-        startSpawningPoints()
     }
     
     private func createPoint()
     {
-        let point = MomentumPoint(radius: 40)
-        
+        guard let gameConfiguration else { return }
+        let point = MomentumPoint(radius: gameConfiguration.pointRadius, lifeTime: gameConfiguration.pointLifeTime)
+
         point.position = PointSpawner.randomPosition(in: size)
-        
         addChild(point)
     }
     
     private func startSpawningPoints()
     {
+        guard let gameConfiguration else { return }
         guard action(forKey: spawnActionKey) == nil else {
             return
         }
         let spawn = SKAction.run { [weak self] in self?.createPoint() }
-        let wait = SKAction.wait(forDuration: spawnInterval)
+        let wait = SKAction.wait(forDuration: gameConfiguration.spawnInterval)
         let sequence = SKAction.sequence([wait, spawn])
         let repeatForever = SKAction.repeatForever(sequence)
         
@@ -64,7 +64,6 @@ final class GameScene: SKScene {
         guard !isGamePaused else { return }
         guard let touch = touches.first else { return }
         
-        
         let location = touch.location(in: self)
         handleTouch(at: location)
     }
@@ -79,5 +78,10 @@ final class GameScene: SKScene {
     {
         isGamePaused = false
         self.isPaused = false
+    }
+    
+    func configure(with configuration: GameConfiguration) {
+        self.gameConfiguration = configuration
+        startSpawningPoints()
     }
 }

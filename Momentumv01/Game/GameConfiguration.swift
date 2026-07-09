@@ -14,5 +14,3 @@ struct GameConfiguration {
     let pointRadius: CGFloat
     let xpPerPoint: Int
 }
-
-

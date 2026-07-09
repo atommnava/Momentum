@@ -11,14 +11,13 @@ import SpriteKit
 struct GameView: View {
     let difficulty: Difficulty
     let onExit: () -> Void
-    let configuration = difficulty.configuration
     
     @State private var experience = ShowExperience()
     @State private var isPaused = false
     @State private var countdown: Int?
     
     private let scene: GameScene = {
-        let scene = GameScene(size: CGSize(width: 390, height: 844), configuration: difficulty.configuration)
+        let scene = GameScene(size: CGSize(width: 390, height: 844))
         scene.scaleMode = .resizeFill
         return scene
     }()
@@ -48,10 +47,10 @@ struct GameView: View {
                     
                     Button {
                         if isPaused {
+                            startResumeCountDown()
                         } else {
                             isPaused = true
-                            scene.isPaused = true
-                        }
+                            scene.pauseGame()                        }
                     } label: {
                         Image(systemName: isPaused ? "play.fill" : "pause.fill")
                             .font(.title2.bold())
@@ -68,8 +67,34 @@ struct GameView: View {
             }
         }
         .onAppear {
+            scene.configure(with: difficulty.configuration)
             scene.onPointTouched = {
-                experience.add(amount: 1) }
+                experience.add(amount: difficulty.configuration.xpPerPoint) }
+        }
+    }
+    
+    private func startResumeCountDown()
+    {
+        countdown = 3
+        
+        Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true)
+        { timer in
+            guard let current = countdown else {
+                timer.invalidate()
+                return
+            }
+            
+            if current > 1
+            {
+                countdown = current - 1
+               
+            } else
+            {
+                timer.invalidate()
+                countdown = nil
+                isPaused = false
+               
+                scene.resumeGame()
             }
         }
     }

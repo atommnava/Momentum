@@ -2,7 +2,7 @@ import SpriteKit
 
 final class MomentumPoint: SKShapeNode, TouchableNode {
     
-    init(radius: CGFloat = 40, lifeTime: TimeInterval = 3) {
+    init(radius: CGFloat = 40, lifeTime: TimeInterval) {
         super.init()
         
         let circlePath = CGPath(
