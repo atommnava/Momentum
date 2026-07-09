@@ -1,4 +1,4 @@
-<h1 align="center">Reflexity</h1>
+<h1 align="center">Momentum.com</h1>
 
 <p align="center">
   A modern iOS reflex game built with <b>SwiftUI</b> and <b>SpriteKit</b>.
@@ -12,7 +12,7 @@
 
 ## About
 
-Reflexity is a reaction-speed game where players must tap disappearing points as quickly and accurately as possible.
+Momentum is a reaction-speed game where players must tap disappearing points as quickly and accurately as possible.
 
 The goal is to build a unique, scalable, and polished mobile game where each session feels different through procedural gameplay, difficulty-based configurations, XP progression, and future game modes.
 
