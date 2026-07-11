@@ -1,8 +1,10 @@
 import SpriteKit
 
 final class MomentumPoint: SKShapeNode, TouchableNode {
+    var onExpired: () -> Void?
     
-    init(radius: CGFloat = 40, lifeTime: TimeInterval) {
+    init(radius: CGFloat = 40, lifeTime: TimeInterval, onExpired: @escaping () -> Void) {
+        self.onExpired = onExpired
         super.init()
         
         let circlePath = CGPath(
@@ -23,9 +25,12 @@ final class MomentumPoint: SKShapeNode, TouchableNode {
     {
         let wait = SKAction.wait(forDuration: duration)
         let dissapear = SKAction.fadeOut(withDuration: 0.15)
+        let notifyExpiration = SKAction.run { [weak self] in
+            self?.onExpired()
+        }
         let remove = SKAction.removeFromParent()
         
-        run(SKAction.sequence([wait, dissapear, remove]))
+        run(SKAction.sequence([wait, dissapear, notifyExpiration, remove]))
     }
     
     func handleTouch() {
@@ -35,6 +40,6 @@ final class MomentumPoint: SKShapeNode, TouchableNode {
     
     required init?(coder aDecoder: NSCoder)
     {
-        super.init(coder: aDecoder)
+        fatalError("init(coder:) no ha sido implementado")
     }
 }

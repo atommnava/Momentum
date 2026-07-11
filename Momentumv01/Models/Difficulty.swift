@@ -11,4 +11,5 @@ enum Difficulty: String {
     case easy = "Fácil"
     case normal = "Normal"
     case experienced = "Experimentado"
+    case madmax = "Madmax"
 }

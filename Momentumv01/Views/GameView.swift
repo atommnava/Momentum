@@ -15,6 +15,8 @@ struct GameView: View {
     @State private var experience = ShowExperience()
     @State private var isPaused = false
     @State private var countdown: Int?
+    @State private var missedPoints: Int = 0
+    @State private var hasStartedGame: Bool = false
     
     private let scene: GameScene = {
         let scene = GameScene(size: CGSize(width: 390, height: 844))
@@ -28,6 +30,7 @@ struct GameView: View {
                 
             VStack {
                 HStack {
+                    
                     Button {
                         onExit()
                     } label: {
@@ -40,6 +43,10 @@ struct GameView: View {
                     Spacer()
                     
                     Text("XP: \(experience.points)")
+                        .font(.headline.bold())
+                        .foregroundStyle(.white)
+                    
+                    Text("Fallos: \(missedPoints)")
                         .font(.headline.bold())
                         .foregroundStyle(.white)
                     
@@ -67,9 +74,21 @@ struct GameView: View {
             }
         }
         .onAppear {
-            scene.configure(with: difficulty.configuration)
             scene.onPointTouched = {
-                experience.add(amount: difficulty.configuration.xpPerPoint) }
+                experience.add(amount: difficulty.configuration.xpPerPoint)
+            }
+            scene.onPointExpired = {
+                missedPoints += 1
+            }
+            scene.configure(with: difficulty.configuration)
+            
+            scene.pauseGame()
+            isPaused = true
+            startCountdown {
+                hasStartedGame = true
+                isPaused = false
+                scene.resumeGame()
+            }
         }
     }
     
@@ -95,6 +114,26 @@ struct GameView: View {
                 isPaused = false
                
                 scene.resumeGame()
+            }
+        }
+    }
+    
+    private func startCountdown(completion: @escaping () -> Void)
+    {
+        countdown = 3
+        
+        Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { timer in
+            guard let current = countdown else {
+                timer.invalidate()
+                return
+            }
+            
+            if current > 1 {
+                countdown = current - 1
+            } else {
+                timer.invalidate()
+                countdown = nil
+                completion()
             }
         }
     }

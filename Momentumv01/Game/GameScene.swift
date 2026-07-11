@@ -13,6 +13,7 @@ final class GameScene: SKScene {
     private var gameConfiguration: GameConfiguration?
     public var onPointTouched: (() -> Void)?
     private(set) var isGamePaused = false
+    var onPointExpired: (() -> Void)?
     
     override func didMove(to view: SKView)
     {
@@ -22,7 +23,9 @@ final class GameScene: SKScene {
     private func createPoint()
     {
         guard let gameConfiguration else { return }
-        let point = MomentumPoint(radius: gameConfiguration.pointRadius, lifeTime: gameConfiguration.pointLifeTime)
+        let point = MomentumPoint(radius: gameConfiguration.pointRadius, lifeTime: gameConfiguration.pointLifeTime) {
+            [weak self] in self?.onPointExpired?()
+        }
 
         point.position = PointSpawner.randomPosition(in: size)
         addChild(point)
