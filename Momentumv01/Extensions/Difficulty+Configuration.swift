@@ -18,6 +18,9 @@ extension Difficulty {
             return GameConfiguration(spawnInterval: 0.7, pointLifeTime: 0.7, pointRadius: 28, xpPerPoint: 30)
         case .madmax:
             return GameConfiguration(spawnInterval: 0.5, pointLifeTime: 0.5, pointRadius: 28, xpPerPoint: 30)
+        
+        case .impossible:
+            return GameConfiguration(spawnInterval: 0.3, pointLifeTime: 0.3, pointRadius: 24, xpPerPoint: 60)
         }
     }
 }

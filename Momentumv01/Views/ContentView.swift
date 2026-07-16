@@ -52,13 +52,38 @@ struct ContentView: View {
                     label: {
                         Text("Nuevo Juego")
                             .font(.title3.bold())
-                            .foregroundStyle(.black)
+                            .foregroundStyle(.white)
                             .frame(maxWidth: .infinity)
                             .frame(height: 60)
-                            .background(.white)
+                            .background(Color.momentumOrange)
                             .clipShape(RoundedRectangle(cornerRadius: 22))
                     }
+                    Button {
+                        // Estadistica = true
+                    }
+                    label: {
+                        Text("Estadisticas")
+                            .font(.title3.bold())
+                                       .foregroundStyle(.white)
+                                       .frame(maxWidth: .infinity)
+                                       .frame(height: 60)
+                                       .background(Color.momentumOrange)
+                                       .clipShape(RoundedRectangle(cornerRadius: 22))
+                    }
+                    Button {
+                        // Opciones = true
+                    }
+                    label: {
+                        Text("Opciones")
+                            .font(.title3.bold())
+                                       .foregroundStyle(.white)
+                                       .frame(maxWidth: .infinity)
+                                       .frame(height: 60)
+                                       .background(Color.momentumOrange)
+                                       .clipShape(RoundedRectangle(cornerRadius: 22))
+                    }
                 }
+                
                 .padding(.horizontal, 24)
                 .padding(.bottom, 85)
             }

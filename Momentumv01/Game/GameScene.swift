@@ -83,8 +83,13 @@ final class GameScene: SKScene {
         self.isPaused = false
     }
     
-    func configure(with configuration: GameConfiguration) {
+    func configure(with configuration: GameConfiguration)
+    {
         self.gameConfiguration = configuration
-        startSpawningPoints()
+    }
+    
+    func startGame()
+    {
+        startSpawningPoints()       
     }
 }

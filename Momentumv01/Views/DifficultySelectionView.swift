@@ -37,6 +37,9 @@ struct DifficultySelectionView: View {
                 DifficultyOptionButtonView(title: "Madmax", subtitle: "Vas a sufrir") {
                     onSelect(.madmax)
                 }
+                DifficultyOptionButtonView(title: "Imposible", subtitle: "Imposible") {
+                    onSelect(.impossible)
+                }
             }
             .padding(.horizontal, 24)
             Spacer()

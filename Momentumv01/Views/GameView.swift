@@ -74,20 +74,24 @@ struct GameView: View {
             }
         }
         .onAppear {
+            guard !hasStartedGame else { return }
             scene.onPointTouched = {
                 experience.add(amount: difficulty.configuration.xpPerPoint)
             }
             scene.onPointExpired = {
                 missedPoints += 1
             }
-            scene.configure(with: difficulty.configuration)
             
             scene.pauseGame()
             isPaused = true
+            
+            scene.configure(with: difficulty.configuration)
+            
             startCountdown {
                 hasStartedGame = true
                 isPaused = false
                 scene.resumeGame()
+                scene.startGame()
             }
         }
     }
