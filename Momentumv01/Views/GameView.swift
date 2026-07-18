@@ -76,7 +76,7 @@ struct GameView: View {
                 Spacer()
                 
                 if isGameOver {
-                    VStack(spacing: 16) {
+                    VStack(spacing: 8) {
                         Text("GAME OVER")
                             .font(.title.bold())
                             .foregroundStyle(.white)
@@ -95,7 +95,7 @@ struct GameView: View {
                 experience.add(amount: difficulty.configuration.xpPerPoint)
             }
             scene.onPointExpired = {
-                missedPoints += 1
+                handleMissedPoint()
             }
             
             scene.pauseGame()
@@ -110,6 +110,23 @@ struct GameView: View {
                 scene.startGame()
             }
         }
+    }
+    
+    private func handleMissedPoint()
+    {
+        guard !isGameOver else { return }
+        missedPoints += 1
+        
+        if missedPoints >= 3 {
+            triggerGameOver()
+        }
+    }
+    
+    private func triggerGameOver()
+    {
+        isGameOver = true
+        isPaused = true
+        scene.endGame()
     }
     
     private func startResumeCountDown()
