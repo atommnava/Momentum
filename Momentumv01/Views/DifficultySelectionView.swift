@@ -20,7 +20,7 @@ struct DifficultySelectionView: View {
             
             Text("Dificultad seleccionada")
                 .font(.title2.bold())
-                .foregroundStyle(.white)
+                .foregroundStyle(.black)
             
             VStack(spacing: 12) {
                 DifficultyOptionButtonView(title: "Fácil", subtitle: "Te ataqueremos con lo mínimo") {
@@ -44,7 +44,7 @@ struct DifficultySelectionView: View {
         .presentationDetents([.medium])
         .presentationDragIndicator(.hidden)
         .frame(maxWidth: .infinity)
-        .background(Color.black)
+        .background(Color.white)
     }
 }
 

@@ -21,11 +21,11 @@ struct DifficultyOptionButtonView: View {
                 VStack(alignment: .leading, spacing: 4) {
                     Text(title)
                         .font(.headline.bold())
-                        .foregroundStyle(.white)
+                        .foregroundStyle(.black)
                     
                     Text(subtitle)
                         .font(.subheadline)
-                        .foregroundStyle(.white.opacity(0.7))
+                        .foregroundStyle(.black.opacity(0.7))
                 }
                 Spacer()
                 
@@ -34,7 +34,7 @@ struct DifficultyOptionButtonView: View {
             }
             .padding()
             .frame(maxWidth: .infinity)
-            .background(Color.white.opacity(0.08))
+            .background(Color.black.opacity(0.08))
             .clipShape(RoundedRectangle(cornerRadius: 18))
         }
     }
