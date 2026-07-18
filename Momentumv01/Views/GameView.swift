@@ -17,6 +17,9 @@ struct GameView: View {
     @State private var countdown: Int?
     @State private var missedPoints: Int = 0
     @State private var hasStartedGame: Bool = false
+    @State private var isGameOver: Bool = false
+    
+    private let maxLives = 3
     
     private let scene: GameScene = {
         let scene = GameScene(size: CGSize(width: 390, height: 844))

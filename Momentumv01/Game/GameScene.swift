@@ -92,4 +92,12 @@ final class GameScene: SKScene {
     {
         startSpawningPoints()       
     }
+    
+    func endGame()
+    {
+        removeAction(forKey: spawnActionKey)
+        removeAllChildren()
+        isGamePaused = true
+        self.isPaused = true
+    }
 }

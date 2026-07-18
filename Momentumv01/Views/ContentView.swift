@@ -28,13 +28,13 @@ struct ContentView: View {
     
     private var mainMenu: some View {
         ZStack {
-            Color.black
+            Color.white
                 .ignoresSafeArea()
             VStack {
                 VStack(spacing: 6) {
                     Text("Momentum")
                         .font(.system(size: 40, weight: .black, design: .rounded))
-                        .foregroundStyle(.white)
+                        .foregroundStyle(.black)
                         .tracking(-1)
                     
                     Text("Prueba tu Cerebro")
@@ -55,6 +55,7 @@ struct ContentView: View {
                             .foregroundStyle(.white)
                             .frame(maxWidth: .infinity)
                             .frame(height: 60)
+                            .frame(width: 320)
                             .background(Color.momentumOrange)
                             .clipShape(RoundedRectangle(cornerRadius: 22))
                     }
@@ -67,6 +68,7 @@ struct ContentView: View {
                                        .foregroundStyle(.white)
                                        .frame(maxWidth: .infinity)
                                        .frame(height: 60)
+                                       .frame(width: 320)
                                        .background(Color.momentumOrange)
                                        .clipShape(RoundedRectangle(cornerRadius: 22))
                     }
@@ -79,6 +81,7 @@ struct ContentView: View {
                                        .foregroundStyle(.white)
                                        .frame(maxWidth: .infinity)
                                        .frame(height: 60)
+                                       .frame(width: 320)
                                        .background(Color.momentumOrange)
                                        .clipShape(RoundedRectangle(cornerRadius: 22))
                     }
