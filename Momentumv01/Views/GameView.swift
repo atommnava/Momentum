@@ -49,7 +49,7 @@ struct GameView: View {
                         .font(.headline.bold())
                         .foregroundStyle(.white)
                     
-                    Text("Fallos: \(missedPoints)")
+                    Text("Fallos: \(missedPoints)/\(maxLives)")
                         .font(.headline.bold())
                         .foregroundStyle(.white)
                     
@@ -74,11 +74,24 @@ struct GameView: View {
                             .foregroundStyle(.white)
                 }
                 Spacer()
+                
+                if isGameOver {
+                    VStack(spacing: 16) {
+                        Text("GAME OVER")
+                            .font(.title.bold())
+                            .foregroundStyle(.white)
+                        Text("XP Final: \(experience.points)")
+                            .font(.headline)
+                            .foregroundStyle(.white.opacity(0.8))
+                    }
+                    .padding(.bottom, 60)
+                }
             }
         }
         .onAppear {
             guard !hasStartedGame else { return }
             scene.onPointTouched = {
+                guard !isGameOver else { return }
                 experience.add(amount: difficulty.configuration.xpPerPoint)
             }
             scene.onPointExpired = {
