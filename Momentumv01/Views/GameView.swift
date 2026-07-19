@@ -33,18 +33,6 @@ struct GameView: View {
                 
             VStack {
                 HStack {
-                    
-                    Button {
-                        onExit()
-                    } label: {
-                        Image(systemName: "chevron.left")
-                            .font(.title2.bold())
-                            .foregroundStyle(.white)
-                            .padding()
-                    }
-                    
-                    Spacer()
-                    
                     Text("XP: \(experience.points)")
                         .font(.headline.bold())
                         .foregroundStyle(.white)
@@ -76,15 +64,7 @@ struct GameView: View {
                 Spacer()
                 
                 if isGameOver {
-                    VStack(spacing: 8) {
-                        Text("GAME OVER")
-                            .font(.title.bold())
-                            .foregroundStyle(.white)
-                        Text("XP Final: \(experience.points)")
-                            .font(.headline)
-                            .foregroundStyle(.white.opacity(0.8))
-                    }
-                    .padding(.bottom, 60)
+                    gameOverContainer
                 }
             }
         }
@@ -110,6 +90,38 @@ struct GameView: View {
                 scene.startGame()
             }
         }
+    }
+    
+    private var gameOverContainer: some View {
+        VStack(spacing: 20) {
+            VStack(spacing: 6) {
+                Text("¡PERDISTE!")
+                    .font(.title.bold())
+                    .foregroundStyle(.white)
+                
+                Text("XP Final: \(experience.points)")
+                    .font(.headline)
+                    .foregroundStyle(.white.opacity(0.8))
+            }
+            
+            Button {
+                onExit()
+            } label: {
+                Text("Volver al menú")
+                                   .font(.headline.bold())
+                                   .foregroundStyle(.white)
+                                   .frame(maxWidth: .infinity)
+                                   .frame(height: 52)
+                                   .background(Color.momentumOrange)
+                                   .clipShape(RoundedRectangle(cornerRadius: 18))
+            }
+        }
+        .padding(24)
+                .frame(maxWidth: .infinity)
+                .background(Color.white.opacity(0.08))
+                .clipShape(RoundedRectangle(cornerRadius: 24))
+                .padding(.horizontal, 24)
+                .padding(.bottom, 40)
     }
     
     private func handleMissedPoint()
