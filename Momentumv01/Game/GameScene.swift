@@ -26,7 +26,6 @@ final class GameScene: SKScene {
         let point = MomentumPoint(radius: gameConfiguration.pointRadius, lifeTime: gameConfiguration.pointLifeTime) {
             [weak self] in self?.onPointExpired?()
         }
-
         point.position = PointSpawner.randomPosition(in: size)
         addChild(point)
     }
